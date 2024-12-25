@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Interaction</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script>
+        async function sendQuery() {
+            const query = document.getElementById("query").value;
+            if (!query) {
+                alert("Query cannot be empty.");
+                return;
+            }
+
+            try {
+                const response = await fetch("/process_query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query }),
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    alert(`Error: ${data.error}`);
+                } else {
+                    updateHistory(query, data);
+                }
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        }
+
+        async function clearHistory() {
+            await fetch("/clear_history", { method: "POST" });
+            document.getElementById("history").innerHTML = "";
+        }
+
+        async function endSession() {
+            await fetch("/end_session", { method: "POST" });
+            document.getElementById("history").innerHTML +=
+                '<p class="interaction">Session ended.</p>';
+        }
+
+        function updateHistory(query, response) {
+            const history = document.getElementById("history");
+            history.innerHTML += `
+                <div class="interaction">
+                    <p class="query">User: ${query}</p>
+                    <p class="response">Response: ${JSON.stringify(response, null, 2)}</p>
+                </div>`;
+        }
+    </script>
+</head>
+<body>
+    <h1>LLM-powered Metric Query</h1>
+    <div id="query-container">
+        <textarea id="query" placeholder="Enter your query"></textarea>
+        <div>
+            <button onclick="sendQuery()">Submit</button>
+            <button onclick="clearHistory()">Clear History</button>
+            <button onclick="endSession()">End Session</button>
+        </div>
+    </div>
+    <div id="history"></div>
+</body>
+</html>

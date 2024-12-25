@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#query-container {
+    text-align: center;
+}
+
+#query {
+    width: 80%;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#history {
+    margin: 20px auto;
+    width: 90%;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 10px;
+}
+
+.interaction {
+    margin-bottom: 10px;
+}
+
+.query {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.response {
+    white-space: pre-wrap;
+}
