@@ -72,9 +72,6 @@ pip install -r requirements.txt
 ```
 
 ## Environment Variables
-
-Required environment variables:
-
 ```
 GROQ_API_KEY=your-groq-api-key
 MODEL_NAME=llama-3.1-8b-instant
